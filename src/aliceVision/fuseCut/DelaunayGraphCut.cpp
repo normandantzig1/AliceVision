@@ -1682,7 +1682,6 @@ void DelaunayGraphCut::fillGraphPartPtRc(int& out_nstepsFront, int& out_nstepsBe
         Facet facet = getFacetFromVertexOnTheRayToTheCam(vertexIndex, cam, nearestFarest);
 
         Point3d p = originPt;
-        CellIndex lastFinite = GEO::NO_CELL;
         bool ok = facet.cellIndex != GEO::NO_CELL;
         while(ok)
         {
@@ -1719,15 +1718,14 @@ void DelaunayGraphCut::fillGraphPartPtRc(int& out_nstepsFront, int& out_nstepsBe
                 if(facet.cellIndex == GEO::NO_CELL)
                     ok = false;
                 p = intersectPt;
-                lastFinite = facet.cellIndex;
             }
         }
 
         // get the outer tetrahedron of camera c for the ray to p = the last tetrahedron
-        if(lastFinite != GEO::NO_CELL)
+        if(facet.cellIndex != GEO::NO_CELL)
         {
 #pragma OMP_ATOMIC_WRITE
-            _cellsAttr[lastFinite].cellSWeight = (float)maxint;
+            _cellsAttr[facet.cellIndex].cellSWeight = (float)maxint;
         }
     }
 
