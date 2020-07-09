@@ -21,6 +21,7 @@ As AliceVision use some C++11 features you must have a c++11 ready compiler:
 - Visual studio >= 2015 (English language pack required for vcpkg)
 - GCC >= 4.7
 - Clang >= 3.3
+- gfortran
 
 Dependencies
 ------------
